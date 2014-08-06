@@ -2118,8 +2118,10 @@ function GlobalController($scope, $location, $timeout, $sce, ConfirmDialogServic
 	};
 	
 	$scope.connect=function() {
-		// when opening from filesystem, just try default ES location
-		if ($location.host() === "") {
+		if (kopfSettings && kopfSettings.host) {
+			$scope.setHost(kopfSettings.host);
+		} else if ($location.host() === "") {
+			// when opening from filesystem, just try default ES location
 			$scope.setHost("http://localhost:9200");
 		} else {
 			var location = $scope.readParameter('location');
